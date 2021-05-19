@@ -9,10 +9,10 @@ from email.message import EmailMessage
 from time import sleep
 from datetime import datetime
 
-SEND_MAIL = False
-SMTP_SERVER = "localhost"
-EMAIL_FROM = "ubentaandebeurt@localhost"
-EMAIL_TO = ["jan@example.com"]
+SEND_MAIL:   bool = False
+SMTP_SERVER: str  = "localhost"
+EMAIL_FROM:  str  = "ubentaandebeurt@localhost"
+EMAIL_TO:    str  = ["jan@example.com"]
 
 
 def benikalaandebeurt(jaar: int) -> bool:
