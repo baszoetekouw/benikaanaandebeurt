@@ -48,7 +48,7 @@ def stuurmail(jaar: int, aan: str) -> None:
 
 
 def main() -> None:
-    jaar: int = 1961
+    jaar: int = 1966
     while jaar<2000:
         print(f"Wachten tot geboortejaar {jaar} aan de beurt is", end="")
         while not benikalaandebeurt(jaar):
