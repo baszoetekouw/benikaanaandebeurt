@@ -62,6 +62,7 @@ def main() -> None:
         stuurmail(aan="bas@zoetekouw.net", jaar=jaar)
 
         jaar += 1
+        sleep(1)
 
 
 # Press the green button in the gutter to run the script.
