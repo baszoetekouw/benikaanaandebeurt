@@ -50,15 +50,15 @@ def stuurmail(jaar: int, aan: str) -> None:
 def main() -> None:
     jaar: int = 1966
     while jaar<2000:
-        print(f"Wachten tot geboortejaar {jaar} aan de beurt is", end="")
+        print(f"Wachten tot geboortejaar {jaar} aan de beurt is", end="", flush=True)
         while not benikalaandebeurt(jaar):
             sleep(600)
-            print(".", end="")
+            print(".", end="", flush=True)
 
         print()
         nu = datetime.now().isoformat(sep=" ", timespec="seconds")
 
-        print(f"Joepie, geboortejaar {jaar} is aan de beurt! ({nu})")
+        print(f"Joepie, geboortejaar {jaar} is aan de beurt! ({nu})", flush=True)
         stuurmail(aan="bas@zoetekouw.net", jaar=jaar)
 
         jaar += 1
