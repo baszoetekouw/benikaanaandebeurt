@@ -17,16 +17,23 @@ EMAIL_TO:    str  = ["jan@example.com"]
 
 def benikalaandebeurt(jaar: int) -> bool:
     url = f"https://user-api.coronatest.nl/vaccinatie/programma/bepaalbaar/{jaar}/NEE/NEE"
-    response = requests.get(url)
-    if response.status_code != 200:
-        raise Exception(f"Got response {response.status_code}")
-    json = response.json()
-    if "success" not in json:
-        raise Exception(f"Got invalid response: '{response.text}'")
-    return json["success"] is True
+    while True:
+        try:
+            response = requests.get(url)
+            if response.status_code != 200:
+                raise Exception(f"Got response {response.status_code}")
+            json = response.json()
+            if "success" not in json:
+                raise Exception(f"Got invalid response: '{response.text}'")
+
+            return json["success"] is True
+
+        except:
+            print("Got error, retrying")
+            sleep(60)
 
 
-def stuurmail(jaar: int, aan: str) -> None:
+def stuurmail(jaar: int) -> None:
     if not SEND_MAIL:
         return
 
@@ -48,8 +55,8 @@ def stuurmail(jaar: int, aan: str) -> None:
 
 
 def main() -> None:
-    jaar: int = 1966
-    while jaar<2000:
+    jaar: int = 1972
+    while jaar < 2000:
         print(f"Wachten tot geboortejaar {jaar} aan de beurt is", end="", flush=True)
         while not benikalaandebeurt(jaar):
             sleep(600)
@@ -59,7 +66,7 @@ def main() -> None:
         nu = datetime.now().isoformat(sep=" ", timespec="seconds")
 
         print(f"Joepie, geboortejaar {jaar} is aan de beurt! ({nu})", flush=True)
-        stuurmail(aan="bas@zoetekouw.net", jaar=jaar)
+        stuurmail(jaar=jaar)
 
         jaar += 1
         sleep(1)
